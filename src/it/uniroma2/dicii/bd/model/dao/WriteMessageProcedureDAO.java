@@ -19,30 +19,34 @@ public class WriteMessageProcedureDAO implements GenericProcedureDAO <Message>{
     @Override
     public Message execute(Object... params) throws DAOException{
 
-        String seller = (String) params[0];
-        User user = (User) params[1];
-        String text = (String)params[2];
-        Message m = null;
+        User buyer = (User) params[0];
+        User seller = (User) params[1];
+        Message text = (Message) params[2];
+        Message m;
         int idConversation;
+        int idMsg;
+        Date date;
+        Time time;
         try {
 
             Connection conn = ConnectionFactory.getConnection();
-            CallableStatement cs = conn.prepareCall("{call invia_messaggio(?,?, ?)}");
-            cs.setString(1, seller);
-            cs.setString(2, user.getUsername());
-            cs.setString(3, text);
+            CallableStatement cs = conn.prepareCall("{call invia_messaggio(?,?,?,?,?,?,?)}");
+            cs.setString(1, buyer.getUsername());
+            cs.setString(2, seller.getUsername());
+            cs.setString(3, text.getText());
             cs.registerOutParameter(4, Types.INTEGER);
-            boolean status = cs.execute();
-            idConversation = cs.getInt(6);
-            if(status) {
-                ResultSet rs = cs.getResultSet();
-                while (rs.next()) {
-                    m = new Message(rs.getDate(2), rs.getTime(3), rs.getString(4));
-                    m.setIdConversation(idConversation);
-                    m.setId(rs.getInt(1));
-                }
-            }
+            cs.registerOutParameter(5, Types.INTEGER);
+            cs.registerOutParameter(6, Types.DATE);
+            cs.registerOutParameter(7, Types.TIME);
+            cs.execute();
+            idConversation = cs.getInt(4);
+            idMsg = cs.getInt(5);
+            date = cs.getDate(6);
+            time = cs.getTime(7);
 
+            m = new Message(date, time, text.getText());
+            m.setIdConversation(idConversation);
+            m.setId(idMsg);
         } catch (SQLException e) {
             throw new DAOException("Error write a message: " + e.getMessage());
         }

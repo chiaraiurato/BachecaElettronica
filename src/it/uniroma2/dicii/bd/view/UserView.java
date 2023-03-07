@@ -19,7 +19,8 @@ public class UserView {
         System.out.println("1) Crea un annuncio");
         System.out.println("2) Lista gli annunci ");
         System.out.println("3) Visualizza un annuncio");
-        System.out.println("4) Esci");
+        System.out.println("4) Scrivi un messaggio");
+        System.out.println("5) Esci");
 
 
         Scanner input = new Scanner(System.in);
@@ -101,4 +102,15 @@ public class UserView {
 
         }
     }
+
+    public static Conversation writeMessage(User user) {
+        Scanner input = new Scanner(System.in);
+        System.out.println("Inserire username: ");
+        String username = input.nextLine();
+
+        System.out.println("Inserire messaggio: ");
+        String msg = input.nextLine();
+        return new Conversation( user, new User(username), new Message(msg));
+    }
+
 }

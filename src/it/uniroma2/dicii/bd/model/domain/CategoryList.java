@@ -7,7 +7,7 @@ import java.util.Objects;
 
 public class CategoryList {
 
-    List<Category> categories = new ArrayList<>();
+    private final List<Category> categories = new ArrayList<>();
     public void addCategories(Category category) {
         this.categories.add(category);
     }

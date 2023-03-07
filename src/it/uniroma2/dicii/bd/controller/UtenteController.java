@@ -7,13 +7,16 @@ import it.uniroma2.dicii.bd.model.domain.*;
 import it.uniroma2.dicii.bd.view.UserView;
 
 import java.io.IOException;
+import java.sql.Date;
 import java.sql.SQLException;
 
 public class UtenteController implements Controller{
-    User user = new User("m.rossi", "mario", "rossi", "15-04-2000", "via c.marchesi" );
-    Ad ad = null;
-    AdList adList = null;
-    CategoryList categoryList = null;
+    User user = new User("m.rossi", "mario", "rossi", new Date(2000, 04, 15), "via c.marchesi" );
+    private Ad ad = null;
+    private AdList adList = null;
+    private CategoryList categoryList = null;
+    private Message m = null;
+    private Conversation conv = null;
 
     @Override
     public void start() {
@@ -44,7 +47,13 @@ public class UtenteController implements Controller{
     }
 
     private void writeMessage() {
-
+        WriteMessageProcedureDAO writeMessage = WriteMessageProcedureDAO.getInstance();
+        conv = UserView.writeMessage(user);
+        try {
+            m = writeMessage.execute(user, conv.getSeller(), conv.getMessageLists().get(0));
+        } catch (DAOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private void listAd() {
@@ -93,7 +102,6 @@ public class UtenteController implements Controller{
             throw new RuntimeException(e);
         }
         UserView.showAd(ad);
-
     }
 
 
