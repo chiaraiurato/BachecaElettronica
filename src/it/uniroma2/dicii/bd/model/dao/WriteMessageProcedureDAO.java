@@ -23,7 +23,6 @@ public class WriteMessageProcedureDAO implements GenericProcedureDAO <Message>{
         User seller = (User) params[1];
         Message text = (Message) params[2];
         Message m;
-        int idConversation;
         int idMsg;
         Date date;
         Time time;
@@ -39,13 +38,12 @@ public class WriteMessageProcedureDAO implements GenericProcedureDAO <Message>{
             cs.registerOutParameter(6, Types.DATE);
             cs.registerOutParameter(7, Types.TIME);
             cs.execute();
-            idConversation = cs.getInt(4);
             idMsg = cs.getInt(5);
             date = cs.getDate(6);
             time = cs.getTime(7);
 
-            m = new Message(date, time, text.getText());
-            m.setIdConversation(idConversation);
+            m = new Message(buyer, date, time, text.getText());
+            //m.setIdConversation(idConversation);
             m.setId(idMsg);
         } catch (SQLException e) {
             throw new DAOException("Error write a message: " + e.getMessage());

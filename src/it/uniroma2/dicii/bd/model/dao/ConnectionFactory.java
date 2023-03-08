@@ -12,7 +12,6 @@ import java.util.Properties;
 
 public class ConnectionFactory {
     private static Connection connection;
-
     private ConnectionFactory() {}
 
     static {

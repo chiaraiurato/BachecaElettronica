@@ -19,8 +19,9 @@ public class UserView {
         System.out.println("1) Crea un annuncio");
         System.out.println("2) Lista gli annunci ");
         System.out.println("3) Visualizza un annuncio");
-        System.out.println("4) Scrivi un messaggio");
-        System.out.println("5) Esci");
+        System.out.println("4) Visualizza una conversazione");
+        System.out.println("5) Scrivi un messaggio");
+        System.out.println("6) Esci");
 
 
         Scanner input = new Scanner(System.in);
@@ -28,7 +29,7 @@ public class UserView {
         while (true) {
             System.out.print("Inserisci la scelta: ");
             choice = input.nextInt();
-            if (choice >= 1 && choice <= 4) {
+            if (choice >= 1 && choice <= 6) {
                 break;
             }
             System.out.println("Opzione invalida");
@@ -73,16 +74,16 @@ public class UserView {
         System.out.println("Inserire codice annuncio: ");
         return input.nextInt();
     }
-    public static void showAd(Ad AD) {
+    public static void showAd(Ad ad) {
         TablePrinter tablePrinter = new TablePrinter();
         tablePrinter.setShowVerticalLines(true);
-        if (AD == null) {
+        if (ad == null) {
             System.out.println("\nNessun annuncio inserito! ");
         } else {
             tablePrinter.setHeaders("Titolo", "Importo", "Descrizione", "Stato", "Username", "Categoria" );
 
-            tablePrinter.addRow(AD.getTitle(), AD.getAmount().toString(),
-                    AD.getDescription(), AD.getStatus().toString(),  AD.getUser().getUsername(), AD.getCategory().getName());
+            tablePrinter.addRow(ad.getTitle(), ad.getAmount().toString(),
+                    ad.getDescription(), ad.getStatus().toString(),  ad.getUser().getUsername(), ad.getCategory().getName());
             tablePrinter.print();
 
         }
@@ -102,7 +103,11 @@ public class UserView {
 
         }
     }
-
+    public static String listMessages(){
+        Scanner input = new Scanner(System.in);
+        System.out.println("Inserire username: ");
+        return input.nextLine();
+    }
     public static Conversation writeMessage(User user) {
         Scanner input = new Scanner(System.in);
         System.out.println("Inserire username: ");

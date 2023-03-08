@@ -5,18 +5,21 @@ import java.util.Date;
 
 public class Message {
     private int id;
-    private int idConversation;
     private Date date;
     private Time hour;
     private String text;
-
-    public Message(Date date, Time hour, String text) {
+    private User owner;
+    public Message(User owner, Date date, Time hour, String text) {
+        this.owner = owner;
         this.date = date;
         this. hour = hour;
         this.text = text;
     }
     public Message(String text) {
         this.text = text;
+    }
+    public User getOwner() {
+        return owner;
     }
 
     public int getId() {
@@ -26,15 +29,8 @@ public class Message {
     public void setId(int id) {
         this.id = id;
     }
-
-    public int getIdConversation() {
-        return idConversation;
-    }
     public String getText() {
         return text;
-    }
-    public void setIdConversation(int idConversation) {
-        this.idConversation = idConversation;
     }
 
 }

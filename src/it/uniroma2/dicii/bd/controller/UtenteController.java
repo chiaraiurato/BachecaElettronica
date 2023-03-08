@@ -1,28 +1,22 @@
 package it.uniroma2.dicii.bd.controller;
-
 import it.uniroma2.dicii.bd.exception.DAOException;
 import it.uniroma2.dicii.bd.model.dao.*;
-
 import it.uniroma2.dicii.bd.model.domain.*;
 import it.uniroma2.dicii.bd.view.UserView;
-
 import java.io.IOException;
-import java.sql.Date;
 import java.sql.SQLException;
 
-public class UtenteController implements Controller{
-    User user = new User("m.rossi", "mario", "rossi", new Date(2000, 04, 15), "via c.marchesi" );
+public class UtenteController implements ControllerSession{
+    private User user;
     private Ad ad = null;
-    private AdList adList = null;
-    private CategoryList categoryList = null;
-    private Message m = null;
-    private Conversation conv = null;
 
     @Override
-    public void start() {
+    public void start(Credentials credentials) {
         try {
             ConnectionFactory.changeRole(Role.UTENTE);
-        } catch(SQLException e) {
+            ObtainUserProcedureDAO obtainUser = ObtainUserProcedureDAO.getInstance();
+            user = obtainUser.execute(credentials.getUsername());
+        } catch(SQLException | DAOException e) {
             throw new RuntimeException(e);
         }
 
@@ -39,24 +33,38 @@ public class UtenteController implements Controller{
                 case 1 -> newAd();
                 case 2 -> listAd();
                 case 3 -> viewAd();
-                case 4 -> writeMessage();
-                case 5 -> System.exit(0);
+                case 4 -> viewMessages();
+                case 5 -> writeMessage();
+                case 6 -> System.exit(0);
                 default -> throw new RuntimeException("Invalid choice");
             }
         }
     }
 
+    private void viewMessages() {
+        User seller = new User(UserView.listMessages());
+        ViewMessagesProcedureDAO viewMessages = ViewMessagesProcedureDAO.getInstance();
+        Conversation conversation;
+        try {
+            conversation = viewMessages.execute(user, seller);
+        } catch (DAOException | SQLException e) {
+            throw new RuntimeException(e);
+        }
+        System.out.println(conversation.toString());
+    }
+
     private void writeMessage() {
         WriteMessageProcedureDAO writeMessage = WriteMessageProcedureDAO.getInstance();
-        conv = UserView.writeMessage(user);
+        Conversation conv = UserView.writeMessage(user);
         try {
-            m = writeMessage.execute(user, conv.getSeller(), conv.getMessageLists().get(0));
+            Message m = writeMessage.execute(user, conv.getSeller(), conv.getMessageLists().get(0));
         } catch (DAOException e) {
             throw new RuntimeException(e);
         }
     }
 
     private void listAd() {
+        AdList adList;
         try {
             ListAdProcedureDAO listAd = ListAdProcedureDAO.getInstance();
             adList = listAd.execute(user);
@@ -77,7 +85,7 @@ public class UtenteController implements Controller{
 
         try {
             ShowCategoriesProcedureDAO showCategories = ShowCategoriesProcedureDAO.getInstance();
-            categoryList = showCategories.execute();
+            CategoryList categoryList = showCategories.execute();
             UserView.showCategory(categoryList);
             category = UserView.selectCategory(categoryList);
             ad.setCategory(category);

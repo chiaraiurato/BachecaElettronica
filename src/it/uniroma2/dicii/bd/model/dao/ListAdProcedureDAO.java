@@ -9,7 +9,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class ListAdProcedureDAO implements GenericProcedureDAO <AdList>{
-    AdList adList = new AdList();
     private static ListAdProcedureDAO instance = null;
     private ListAdProcedureDAO(){
         //Singleton
@@ -23,6 +22,7 @@ public class ListAdProcedureDAO implements GenericProcedureDAO <AdList>{
     @Override
     public AdList execute(Object... params) throws DAOException{
         User user = (User) params[0];
+        AdList adList = new AdList();
         try {
             Connection conn = ConnectionFactory.getConnection();
             CallableStatement cs = conn.prepareCall("{call lista_annunci()}");

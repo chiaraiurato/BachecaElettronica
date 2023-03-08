@@ -3,8 +3,6 @@ package it.uniroma2.dicii.bd.model.domain;
 import java.util.Date;
 
 public class User {
-
-
     private final String username;
     private String name;
     private String surname;

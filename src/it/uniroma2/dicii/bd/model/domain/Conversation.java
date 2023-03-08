@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Conversation {
+    private int idConversation;
     private final List<Message> messageList = new ArrayList<>();
     private User buyer;
     private User seller;
@@ -18,6 +19,14 @@ public class Conversation {
         this.seller = seller;
         this.messageList.add(message);
     }
+
+    public int getIdConversation() {
+        return idConversation;
+    }
+
+    public void setIdConversation(int idConversation) {
+        this.idConversation = idConversation;
+    }
     public User getBuyer() {
         return buyer;
     }
@@ -26,5 +35,16 @@ public class Conversation {
     }
     public void setBuyer(User buyer) {
         this.buyer = buyer;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder string = new StringBuilder();
+        string.append("** Conversation **" + "\n");
+        for(Message m : messageList) {
+            string.append( m.getOwner().getUsername() + ":");
+            string.append(m.getText() + "\n");
+        }
+        return string.toString();
     }
 }
