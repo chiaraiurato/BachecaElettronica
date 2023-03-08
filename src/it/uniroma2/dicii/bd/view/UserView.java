@@ -94,9 +94,11 @@ public class UserView {
         if (adList == null) {
             System.out.println("\nNessun annuncio inserito! ");
         } else {
-            tablePrinter.setHeaders("Codice","Titolo");
+            System.out.println("\n Annuncio inserito correttamente!");
+            tablePrinter.setHeaders("Codice","Titolo", "Venditore");
             for(int i=0; i<adList.getSize(); i++){
-                tablePrinter.addRow(String.valueOf(adList.getAds().get(i).getIdAd()), adList.getAds().get(i).getTitle());
+                tablePrinter.addRow(String.valueOf(adList.getAds().get(i).getIdAd()), adList.getAds().get(i).getTitle(),
+                        adList.getAds().get(i).getUser().getUsername());
             }
 
             tablePrinter.print();

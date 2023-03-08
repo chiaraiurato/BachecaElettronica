@@ -21,7 +21,7 @@ public class ListAdProcedureDAO implements GenericProcedureDAO <AdList>{
     }
     @Override
     public AdList execute(Object... params) throws DAOException{
-        User user = (User) params[0];
+        User user = null;
         AdList adList = new AdList();
         try {
             Connection conn = ConnectionFactory.getConnection();
@@ -31,7 +31,7 @@ public class ListAdProcedureDAO implements GenericProcedureDAO <AdList>{
                 ResultSet rs = cs.getResultSet();
                 while (rs.next()) {
                     Ad ad = new Ad(rs.getString(2), rs.getFloat(3), rs.getString(4),
-                            user);
+                            new User(rs.getString(6)));
                     ad.setIdAd(rs.getInt(1));
                     ad.setStatus(TypeAd.valueOf(rs.getString(5).toUpperCase()));
                     ad.setCategory(new Category(rs.getString(7)));
