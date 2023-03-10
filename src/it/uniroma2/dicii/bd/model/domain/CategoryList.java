@@ -33,7 +33,6 @@ public class CategoryList {
                     builder.append("\t\t-" + name + "\n");
                 }
             }
-
         }
 
         return builder.toString();

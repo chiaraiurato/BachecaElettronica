@@ -19,22 +19,23 @@ public class UtenteController implements ControllerSession{
         } catch(SQLException | DAOException e) {
             throw new RuntimeException(e);
         }
-
-
+        chooseOperation();
+    }
+    private void chooseOperation(){
         while(true) {
             int choice;
             try {
                 choice = UserView.showMenu();
-            } catch(IOException e) {
+            } catch (IOException e) {
                 throw new RuntimeException(e);
             }
 
-            switch(choice) {
+            switch (choice) {
                 case 1 -> newAd();
                 case 2 -> listAd();
                 case 3 -> viewAd();
-                case 4 -> viewMessages();
-                case 5 -> writeMessage();
+                case 4 -> writeMessage();
+                case 5 -> viewMessages();
                 case 6 -> System.exit(0);
                 default -> throw new RuntimeException("Invalid choice");
             }
@@ -44,13 +45,16 @@ public class UtenteController implements ControllerSession{
     private void viewMessages() {
         User seller = new User(UserView.listMessages());
         ViewMessagesProcedureDAO viewMessages = ViewMessagesProcedureDAO.getInstance();
-        Conversation conversation;
+        Conversation conversation = null;
         try {
             conversation = viewMessages.execute(user, seller);
         } catch (DAOException | SQLException e) {
-            throw new RuntimeException(e);
+            UserView.printError(e);
         }
-        System.out.println(conversation.toString());
+        if(conversation != null){
+            System.out.println(conversation);
+        }
+
     }
 
     private void writeMessage() {
@@ -59,24 +63,24 @@ public class UtenteController implements ControllerSession{
         try {
             Message m = writeMessage.execute(user, conv.getSeller(), conv.getMessageLists().get(0));
         } catch (DAOException e) {
-            throw new RuntimeException(e);
+            UserView.printError(e);
         }
     }
 
     private void listAd() {
-        AdList adList;
+        AdList adList = null;
         try {
             ListAdProcedureDAO listAd = ListAdProcedureDAO.getInstance();
             adList = listAd.execute(user);
         } catch (DAOException e) {
-            throw new RuntimeException(e);
+            UserView.printError(e);
         }
         UserView.showListAd(adList);
     }
 
     private void newAd(){
 
-        Category category;
+        Category category = null;
         try {
             ad = UserView.createAd(user);
         } catch (IOException e) {
@@ -90,13 +94,13 @@ public class UtenteController implements ControllerSession{
             category = UserView.selectCategory(categoryList);
             ad.setCategory(category);
         } catch (IOException | DAOException e) {
-            throw new RuntimeException(e);
+            UserView.printError(e);
         }
         try {
             AddAdProcedureDAO addAd = AddAdProcedureDAO.getInstance();
             ad = addAd.execute(ad.getTitle(), ad.getAmount(), ad.getDescription(), user, category);
         } catch(DAOException e) {
-            throw new RuntimeException(e);
+            UserView.printError(e);
         }
         UserView.showAd(ad);
     }
@@ -105,11 +109,44 @@ public class UtenteController implements ControllerSession{
         int id = UserView.selectAd();
         try {
             ViewAdProcedureDAO viewAd = ViewAdProcedureDAO.getInstance();
-            ad = viewAd.execute(id, user);
+            ad = viewAd.execute(id);
         } catch (DAOException e) {
-            throw new RuntimeException(e);
+            UserView.printError(e);
+            chooseOperation();
         }
         UserView.showAd(ad);
+        while(true) {
+            int choice;
+            choice = UserView.second_menu();
+
+            switch(choice) {
+                case 1 -> listComments();
+                case 2 -> writeComment();
+                case 3 -> chooseOperation();
+                default -> throw new RuntimeException("Invalid choice");
+            }
+        }
+    }
+
+    private void listComments() {
+        CommentList commentList= null;
+        try {
+            ListCommentsProcedureDAO listComments = ListCommentsProcedureDAO.getInstance();
+            commentList = listComments.execute();
+        } catch (DAOException e) {
+            UserView.printError(e);
+        }
+        System.out.println(commentList.toString());
+    }
+
+    private void writeComment() {
+        Comment comment = UserView.writeComment();
+        WriteCommentProcedureDAO writeComment = WriteCommentProcedureDAO.getInstance();
+        try {
+            writeComment.execute(comment);
+        } catch (DAOException | SQLException e) {
+            UserView.printError(e);
+        }
     }
 
 

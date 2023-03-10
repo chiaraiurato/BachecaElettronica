@@ -19,8 +19,8 @@ public class UserView {
         System.out.println("1) Crea un annuncio");
         System.out.println("2) Lista gli annunci ");
         System.out.println("3) Visualizza un annuncio");
-        System.out.println("4) Visualizza una conversazione");
-        System.out.println("5) Scrivi un messaggio");
+        System.out.println("4) Scrivi un messaggio");
+        System.out.println("5) Visualizza una conversazione");
         System.out.println("6) Esci");
 
 
@@ -50,9 +50,12 @@ public class UserView {
     }
 
     public static void showCategory(CategoryList categoryList){
-        System.out.println("--- CATEGORIE---");
+        System.out.println("--- CATEGORIE ---");
         String categories = categoryList.toString();
         System.out.println(categories);
+    }
+    public static void printError(Exception e){
+        System.out.println(e.getMessage());
     }
     public static Category selectCategory(CategoryList categoryList) throws IOException {
         int index = 0;
@@ -113,11 +116,37 @@ public class UserView {
     public static Conversation writeMessage(User user) {
         Scanner input = new Scanner(System.in);
         System.out.println("Inserire username: ");
-        String username = input.nextLine();
-
+        String seller = input.nextLine();
         System.out.println("Inserire messaggio: ");
         String msg = input.nextLine();
-        return new Conversation( user, new User(username), new Message(msg));
+        return new Conversation( user, new User(seller), new Message(msg));
     }
+
+    public static int second_menu() {
+        System.out.println("1) Visualizza commenti");
+        System.out.println("2) Scrivi un commento");
+        System.out.println("3) Ritorna al menu");
+
+        Scanner input = new Scanner(System.in);
+        int choice;
+        while (true) {
+            System.out.print("Inserisci la scelta: ");
+            choice = input.nextInt();
+            if (choice >= 1 && choice <= 3) {
+                break;
+            }
+            System.out.println("Opzione invalida");
+        }
+
+        return choice;
+    }
+
+    public static Comment writeComment() {
+        Scanner input = new Scanner(System.in);
+        System.out.println("Inserire commento: ");
+        String cmt = input.nextLine();
+        return new Comment( cmt);
+    }
+
 
 }

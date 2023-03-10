@@ -27,20 +27,18 @@ public class ViewAdProcedureDAO implements GenericProcedureDAO<Ad>{
     @Override
     public Ad execute(Object... params) throws DAOException {
         int id = (int) params[0];
-        User user = (User) params[1];
         Ad ad = null;
         try {
 
             Connection conn = ConnectionFactory.getConnection();
-            CallableStatement cs = conn.prepareCall("{call visualizza_annuncio(?,?)}");
+            CallableStatement cs = conn.prepareCall("{call visualizza_annuncio(?)}");
             cs.setInt(1, id);
-            cs.setString(2, user.getUsername());
             boolean status = cs.execute();
             if(status) {
                 ResultSet rs = cs.getResultSet();
                 while (rs.next()) {
                     ad = new Ad(rs.getString(2), rs.getFloat(3), rs.getString(4),
-                            user);
+                            new User(rs.getString(6)));
                     ad.setIdAd(rs.getInt(1));
                     ad.setStatus(TypeAd.valueOf(rs.getString(5).toUpperCase()));
                     ad.setCategory(new Category(rs.getString(7)));
