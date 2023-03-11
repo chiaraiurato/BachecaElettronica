@@ -51,7 +51,7 @@ public class UserView {
 
     public static void showCategory(CategoryList categoryList){
         System.out.println("--- CATEGORIE ---");
-        String categories = categoryList.toString();
+        String categories = categoryList.printTreeCategories();
         System.out.println(categories);
     }
     public static void printError(Exception e){

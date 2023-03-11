@@ -89,8 +89,11 @@ public class UtenteController implements ControllerSession{
 
         try {
             ShowCategoriesProcedureDAO showCategories = ShowCategoriesProcedureDAO.getInstance();
-            CategoryList categoryList = showCategories.execute();
+            CategoryList categoryList;
+
+            categoryList = showCategories.execute();
             UserView.showCategory(categoryList);
+
             category = UserView.selectCategory(categoryList);
             ad.setCategory(category);
         } catch (IOException | DAOException e) {

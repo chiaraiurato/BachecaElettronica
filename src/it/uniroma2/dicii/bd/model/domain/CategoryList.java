@@ -3,7 +3,6 @@ package it.uniroma2.dicii.bd.model.domain;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Objects;
 
 public class CategoryList {
 
@@ -15,26 +14,25 @@ public class CategoryList {
         return categories;
     }
 
-    @Override
-    public String toString() {
-        int i;
+    public String printTreeCategories() {
         StringBuilder builder = new StringBuilder();
         Iterator<Category> categoryListIterator = categories.iterator();
         while (categoryListIterator.hasNext()) {
             Category c = categoryListIterator.next();
             String id = c.getIdCategory();
             String name = c.getName();
-            for (i = 1; i <= 3; i++) {
-                if (Objects.equals(id, i + "/")) {
-                    builder.append("+" + name + "\n");
-                } else if (Objects.equals(id, i + "/1")) {
-                    builder.append("\t-" + name + "\n");
-                } else if (Objects.equals(id, i + "/2")) {
-                    builder.append("\t\t-" + name + "\n");
-                }
+
+            if (id.length() == 2) {
+                builder.append("+" + name + "\n");
+            } else if (id.length() == 3) {
+                builder.append("\t-" + name + "\n");
+            } else if (id.length() == 5) {
+                builder.append("\t\t-" + name + "\n");
             }
         }
 
         return builder.toString();
     }
+
+
 }
