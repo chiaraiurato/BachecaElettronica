@@ -19,7 +19,7 @@ public class CommentList {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         for(Comment comment : comments) {
-            sb.append(comment + "\n");
+            sb.append(comment.getText() + "\n");
         }
         return sb.toString();
     }

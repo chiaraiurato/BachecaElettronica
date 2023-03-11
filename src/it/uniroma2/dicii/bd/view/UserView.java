@@ -125,14 +125,15 @@ public class UserView {
     public static int second_menu() {
         System.out.println("1) Visualizza commenti");
         System.out.println("2) Scrivi un commento");
-        System.out.println("3) Ritorna al menu");
+        System.out.println("3) Segui annuncio");
+        System.out.println("4) Ritorna al menu");
 
         Scanner input = new Scanner(System.in);
         int choice;
         while (true) {
             System.out.print("Inserisci la scelta: ");
             choice = input.nextInt();
-            if (choice >= 1 && choice <= 3) {
+            if (choice >= 1 && choice <= 4) {
                 break;
             }
             System.out.println("Opzione invalida");
@@ -147,6 +148,5 @@ public class UserView {
         String cmt = input.nextLine();
         return new Comment( cmt);
     }
-
 
 }

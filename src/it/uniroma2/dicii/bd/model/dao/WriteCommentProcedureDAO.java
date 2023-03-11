@@ -19,14 +19,16 @@ public class WriteCommentProcedureDAO implements GenericProcedureDAO <Comment>{
     @Override
     public Comment execute(Object... params) throws DAOException, SQLException {
         Comment comment = (Comment) params[0];
+        int idAd = (int)params[1];
         try {
 
             Connection conn = ConnectionFactory.getConnection();
-            CallableStatement cs = conn.prepareCall("{call invia_commento(?)}");
+            CallableStatement cs = conn.prepareCall("{call invia_commento(?, ?, ?)}");
             cs.setString(1, comment.getText());
-            cs.registerOutParameter(2, Types.INTEGER);
+            cs.setInt(2, idAd);
+            cs.registerOutParameter(3, Types.INTEGER);
             cs.execute();
-            comment.setIdComment(cs.getInt(2));
+            comment.setIdComment(cs.getInt(3));
         } catch (SQLException e) {
             throw new DAOException("Error write a comment: " + e.getMessage());
         }

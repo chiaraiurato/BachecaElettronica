@@ -123,33 +123,47 @@ public class UtenteController implements ControllerSession{
             choice = UserView.second_menu();
 
             switch(choice) {
-                case 1 -> listComments();
-                case 2 -> writeComment();
-                case 3 -> chooseOperation();
+                case 1 -> listComments(id);
+                case 2 -> writeComment(id);
+                case 3 -> followAd(id);
+                case 4 -> chooseOperation();
                 default -> throw new RuntimeException("Invalid choice");
             }
         }
     }
 
-    private void listComments() {
-        CommentList commentList= null;
+    private void followAd(int idAd) {
+        FollowAdProcedureDAO followAd = FollowAdProcedureDAO.getInstance();
+        Boolean check = false;
+        try {
+            check = followAd.execute(user, idAd);
+        } catch (DAOException e) {
+            System.out.println(e.getMessage());
+        }
+        if(check)
+            System.out.println("\nAnnuncio seguito correttamente!");
+    }
+
+    private void listComments(int idAd) {
+        CommentList commentList = null;
         try {
             ListCommentsProcedureDAO listComments = ListCommentsProcedureDAO.getInstance();
-            commentList = listComments.execute();
+            commentList = listComments.execute(idAd);
         } catch (DAOException e) {
             UserView.printError(e);
         }
         System.out.println(commentList.toString());
     }
 
-    private void writeComment() {
+    private void writeComment(int idAd) {
         Comment comment = UserView.writeComment();
         WriteCommentProcedureDAO writeComment = WriteCommentProcedureDAO.getInstance();
         try {
-            writeComment.execute(comment);
+            writeComment.execute(comment, idAd);
         } catch (DAOException | SQLException e) {
             UserView.printError(e);
         }
+
     }
 
 
