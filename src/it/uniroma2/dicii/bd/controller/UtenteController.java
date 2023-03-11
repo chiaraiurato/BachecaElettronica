@@ -36,10 +36,26 @@ public class UtenteController implements ControllerSession{
                 case 3 -> viewAd();
                 case 4 -> writeMessage();
                 case 5 -> viewMessages();
-                case 6 -> System.exit(0);
+                case 6 -> viewNotification();
+                case 7 -> listFollowedAd();
+                case 9 -> System.exit(0);
                 default -> throw new RuntimeException("Invalid choice");
             }
         }
+    }
+
+    private void listFollowedAd() {
+        ListFollowedAdProcedureDAO followAd = ListFollowedAdProcedureDAO.getInstance();
+        AdList adList = null;
+        try {
+            adList = followAd.execute(user);
+        } catch (DAOException e) {
+            UserView.printError(e);
+        }
+        UserView.showListAd(adList);
+    }
+
+    private void viewNotification() {
     }
 
     private void viewMessages() {
@@ -126,9 +142,36 @@ public class UtenteController implements ControllerSession{
                 case 1 -> listComments(id);
                 case 2 -> writeComment(id);
                 case 3 -> followAd(id);
-                case 4 -> chooseOperation();
+                case 4 -> viewNote(id);
+                case 5 -> createNote(id);
+                case 6 -> chooseOperation();
                 default -> throw new RuntimeException("Invalid choice");
             }
+        }
+    }
+
+    private void createNote(int idAd) {
+        WriteNoteProcedureDAO writeNote = WriteNoteProcedureDAO.getInstance();
+        Note note = UserView.writeNote();
+        try {
+            writeNote.execute(note, idAd, user);
+        } catch (DAOException | SQLException e) {
+            UserView.printError(e);
+        }
+    }
+
+    private void viewNote(int idAd) {
+        NoteList noteList = null;
+        try {
+            ListNoteProcedureDAO listNote = ListNoteProcedureDAO.getInstance();
+            noteList = listNote.execute(idAd);
+        } catch (DAOException e) {
+            UserView.printError(e);
+        }
+        if (noteList != null) {
+            System.out.println(noteList);
+        }else{
+            System.out.println("\nNessuna nota");
         }
     }
 
@@ -152,7 +195,12 @@ public class UtenteController implements ControllerSession{
         } catch (DAOException e) {
             UserView.printError(e);
         }
-        System.out.println(commentList.toString());
+        if (commentList != null) {
+            System.out.println(commentList);
+        }else{
+            System.out.println("\nNessun commento");
+        }
+
     }
 
     private void writeComment(int idAd) {

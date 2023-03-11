@@ -21,7 +21,9 @@ public class UserView {
         System.out.println("3) Visualizza un annuncio");
         System.out.println("4) Scrivi un messaggio");
         System.out.println("5) Visualizza una conversazione");
-        System.out.println("6) Esci");
+        System.out.println("6) Visualizza notifiche");
+        System.out.println("7) Visualizza annunci seguiti");
+        System.out.println("8) Esci");
 
 
         Scanner input = new Scanner(System.in);
@@ -29,7 +31,7 @@ public class UserView {
         while (true) {
             System.out.print("Inserisci la scelta: ");
             choice = input.nextInt();
-            if (choice >= 1 && choice <= 6) {
+            if (choice >= 1 && choice <= 8) {
                 break;
             }
             System.out.println("Opzione invalida");
@@ -97,7 +99,6 @@ public class UserView {
         if (adList == null) {
             System.out.println("\nNessun annuncio inserito! ");
         } else {
-            System.out.println("\n Annuncio inserito correttamente!");
             tablePrinter.setHeaders("Codice","Titolo", "Venditore");
             for(int i=0; i<adList.getSize(); i++){
                 tablePrinter.addRow(String.valueOf(adList.getAds().get(i).getIdAd()), adList.getAds().get(i).getTitle(),
@@ -126,14 +127,16 @@ public class UserView {
         System.out.println("1) Visualizza commenti");
         System.out.println("2) Scrivi un commento");
         System.out.println("3) Segui annuncio");
-        System.out.println("4) Ritorna al menu");
+        System.out.println("4) Visualizza nota");
+        System.out.println("5) Crea nota");
+        System.out.println("6) Ritorna al menu");
 
         Scanner input = new Scanner(System.in);
         int choice;
         while (true) {
             System.out.print("Inserisci la scelta: ");
             choice = input.nextInt();
-            if (choice >= 1 && choice <= 4) {
+            if (choice >= 1 && choice <= 6) {
                 break;
             }
             System.out.println("Opzione invalida");
@@ -149,4 +152,11 @@ public class UserView {
         return new Comment( cmt);
     }
 
+
+    public static Note writeNote() {
+        Scanner input = new Scanner(System.in);
+        System.out.println("Inserire nota: ");
+        String note = input.nextLine();
+        return new Note( note);
+    }
 }
