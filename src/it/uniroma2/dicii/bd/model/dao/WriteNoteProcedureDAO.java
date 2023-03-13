@@ -1,7 +1,6 @@
 package it.uniroma2.dicii.bd.model.dao;
 
 import it.uniroma2.dicii.bd.exception.DAOException;
-import it.uniroma2.dicii.bd.model.domain.Comment;
 import it.uniroma2.dicii.bd.model.domain.Note;
 import it.uniroma2.dicii.bd.model.domain.User;
 

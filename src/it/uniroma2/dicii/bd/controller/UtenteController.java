@@ -76,10 +76,14 @@ public class UtenteController implements ControllerSession{
     private void writeMessage() {
         WriteMessageProcedureDAO writeMessage = WriteMessageProcedureDAO.getInstance();
         Conversation conv = UserView.writeMessage(user);
+        Boolean check = false;
         try {
-            Message m = writeMessage.execute(user, conv.getSeller(), conv.getMessageLists().get(0));
+            check = writeMessage.execute(user, conv.getSeller(), conv.getMessageLists().get(0));
         } catch (DAOException e) {
             UserView.printError(e);
+        }
+        if(check){
+            System.out.println("Messaggio scritto con successo!");
         }
     }
 

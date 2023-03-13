@@ -4,7 +4,7 @@ import it.uniroma2.dicii.bd.model.domain.*;
 
 import java.sql.*;
 
-public class WriteMessageProcedureDAO implements GenericProcedureDAO <Message>{
+public class WriteMessageProcedureDAO implements GenericProcedureDAO <Boolean>{
     private static WriteMessageProcedureDAO instance = null;
 
     private WriteMessageProcedureDAO(){
@@ -17,15 +17,12 @@ public class WriteMessageProcedureDAO implements GenericProcedureDAO <Message>{
         return instance;
     }
     @Override
-    public Message execute(Object... params) throws DAOException{
+    public Boolean execute(Object... params) throws DAOException{
 
         User buyer = (User) params[0];
         User seller = (User) params[1];
         Message text = (Message) params[2];
-        Message m;
-        int idMsg;
-        Date date;
-        Time time;
+
         try {
 
             Connection conn = ConnectionFactory.getConnection();
@@ -38,16 +35,10 @@ public class WriteMessageProcedureDAO implements GenericProcedureDAO <Message>{
             cs.registerOutParameter(6, Types.DATE);
             cs.registerOutParameter(7, Types.TIME);
             cs.execute();
-            idMsg = cs.getInt(5);
-            date = cs.getDate(6);
-            time = cs.getTime(7);
 
-            m = new Message(buyer, date, time, text.getText());
-            //m.setIdConversation(idConversation);
-            m.setId(idMsg);
         } catch (SQLException e) {
             throw new DAOException("Error write a message: " + e.getMessage());
         }
-        return m;
+        return true;
     }
 }

@@ -2,8 +2,6 @@ package it.uniroma2.dicii.bd.model.dao;
 
 import it.uniroma2.dicii.bd.exception.DAOException;
 import it.uniroma2.dicii.bd.model.domain.User;
-
-import javax.management.openmbean.OpenMBeanAttributeInfo;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -33,12 +31,11 @@ public class ObtainUserProcedureDAO implements GenericProcedureDAO <User>{
             if(status) {
                 ResultSet rs = cs.getResultSet();
                 if (rs.next()) {
-                    user = new User(username, rs.getString(3), rs.getString(4), rs.getDate(5),
-                            rs.getString(6));
-
+                    user = new User(rs.getString(3), rs.getString(4), rs.getDate(5),
+                            rs.getString(6), rs.getString(7), rs.getString(8), rs.getString(9));
+                    user.setUsername(username);
                 }
             }
-
         } catch (SQLException e) {
             throw new DAOException("Error obtaining user: " + e.getMessage());
         }
