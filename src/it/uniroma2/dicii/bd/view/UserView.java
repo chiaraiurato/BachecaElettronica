@@ -16,14 +16,14 @@ public class UserView {
         System.out.println("*           DASHBOARD          *");
         System.out.println("*********************************\n");
         System.out.println("*** Cosa potrei fare per te? ***\n");
-        System.out.println("1) Crea un annuncio");
-        System.out.println("2) Lista gli annunci ");
-        System.out.println("3) Visualizza un annuncio");
-        System.out.println("4) Scrivi un messaggio");
-        System.out.println("5) Visualizza una conversazione");
-        System.out.println("6) Visualizza notifiche");
-        System.out.println("7) Visualizza annunci seguiti");
-        System.out.println("8) Esci");
+        System.out.println("1️ Crea un annuncio");
+        System.out.println("2️ Lista gli annunci ");
+        System.out.println("3️ Visualizza un annuncio");
+        System.out.println("4️ Scrivi un messaggio");
+        System.out.println("5️ Visualizza una conversazione");
+        System.out.println("6️ Visualizza notifiche");
+        System.out.println("7️ Visualizza annunci seguiti");
+        System.out.println("8️ Esci");
 
 
         Scanner input = new Scanner(System.in);
@@ -124,12 +124,12 @@ public class UserView {
     }
 
     public static int second_menu() {
-        System.out.println("1) Visualizza commenti");
-        System.out.println("2) Scrivi un commento");
-        System.out.println("3) Segui annuncio");
-        System.out.println("4) Visualizza nota");
-        System.out.println("5) Crea nota");
-        System.out.println("6) Ritorna al menu");
+        System.out.println("1️ Visualizza commenti");
+        System.out.println("2️ Scrivi un commento");
+        System.out.println("3️ Segui annuncio");
+        System.out.println("4️ Visualizza nota");
+        System.out.println("5️ Crea nota");
+        System.out.println("6️ Ritorna al menu");
 
         Scanner input = new Scanner(System.in);
         int choice;

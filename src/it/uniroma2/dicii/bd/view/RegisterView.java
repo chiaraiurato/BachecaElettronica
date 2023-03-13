@@ -14,9 +14,9 @@ import java.util.List;
 public class RegisterView {
     public static Credentials register() throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        System.out.print("Inserisci un username: ");
+        System.out.print(" Inserisci un username: ");
         String username = reader.readLine();
-        System.out.print("Scegli una password: ");
+        System.out.print(" Scegli una password: ");
         String password = reader.readLine();
 
         return new Credentials(username, password, Role.UTENTE);
