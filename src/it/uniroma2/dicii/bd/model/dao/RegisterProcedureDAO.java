@@ -34,7 +34,7 @@ public class RegisterProcedureDAO implements GenericProcedureDAO <Boolean> {
             cs.setDate(5, user.getDateOfBirth());
             cs.setString(6, user.getResidentialAddress());
             cs.setString(7, user.getBillingAddress());
-            cs.setString(8, user.getTypePrefContact());
+            cs.setString(8, user.getTypePrefContact().name());
             cs.setString(9, user.getPrefContactDetails());
             cs.executeQuery();
 

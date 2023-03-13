@@ -11,9 +11,12 @@ public class User {
     private String residentialAddress;
     private String billingAddress;
     private List<Ad> followAds;
-    private String typePrefContact;
+    private TypeContact typePrefContact;
     private String prefContactDetails;
-    public User(String name, String surname, Date dateOfBirth, String residentialAddress, String billingAddress, String typeAddress, String prefContact) {
+
+    private List<ContactNotPreferred> contactNotPreferred;
+
+    public User(String name, String surname, Date dateOfBirth, String residentialAddress, String billingAddress,TypeContact typeAddress, String prefContact) {
         this.name = name;
         this.surname = surname;
         this.dateOfBirth = dateOfBirth;
@@ -66,11 +69,11 @@ public class User {
         this.billingAddress = billingAddress;
     }
 
-    public String getTypePrefContact() {
+    public TypeContact getTypePrefContact() {
         return typePrefContact;
     }
 
-    public void setTypePrefContact(String typePrefContact) {
+    public void setTypePrefContact(TypeContact typePrefContact) {
         this.typePrefContact = typePrefContact;
     }
 
@@ -96,6 +99,13 @@ public class User {
 
     public void setFollowAdId(int id) {
         this.followAds.get(0).setIdAd(id);
+    }
+    public List<ContactNotPreferred> getContactNotPreferred() {
+        return contactNotPreferred;
+    }
+
+    public void setContactNotPreferred(List<ContactNotPreferred> contactNotPreferred) {
+        this.contactNotPreferred = contactNotPreferred;
     }
 
     @Override

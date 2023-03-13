@@ -38,7 +38,7 @@ public class UtenteController implements ControllerSession{
                 case 5 -> viewMessages();
                 case 6 -> viewNotification();
                 case 7 -> listFollowedAd();
-                case 9 -> System.exit(0);
+                case 8 -> System.exit(0);
                 default -> throw new RuntimeException("Invalid choice");
             }
         }

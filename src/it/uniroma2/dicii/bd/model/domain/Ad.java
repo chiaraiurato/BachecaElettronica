@@ -53,16 +53,4 @@ public class Ad {
     public int getIdAd() {
         return idAd;
     }
-/*
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(idAnnouncement).append(": ").append(amount).append('-').append(description).append(" (").append(category).append("): \n");
-        for(User p: user) {
-            sb.append('\t').append(p.toString()).append('\n');
-        }
-        return sb.toString();
-    }
-
- */
 }

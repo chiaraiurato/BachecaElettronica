@@ -1,6 +1,7 @@
 package it.uniroma2.dicii.bd.model.dao;
 
 import it.uniroma2.dicii.bd.exception.DAOException;
+import it.uniroma2.dicii.bd.model.domain.TypeContact;
 import it.uniroma2.dicii.bd.model.domain.User;
 import java.sql.CallableStatement;
 import java.sql.Connection;
@@ -32,7 +33,7 @@ public class ObtainUserProcedureDAO implements GenericProcedureDAO <User>{
                 ResultSet rs = cs.getResultSet();
                 if (rs.next()) {
                     user = new User(rs.getString(3), rs.getString(4), rs.getDate(5),
-                            rs.getString(6), rs.getString(7), rs.getString(8), rs.getString(9));
+                            rs.getString(6), rs.getString(7), TypeContact.valueOf(rs.getString(8)), rs.getString(9));
                     user.setUsername(username);
                 }
             }
