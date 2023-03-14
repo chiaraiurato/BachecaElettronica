@@ -124,19 +124,20 @@ public class UserView {
     }
 
     public static int second_menu() {
-        System.out.println("1️ Visualizza commenti");
-        System.out.println("2️ Scrivi un commento");
-        System.out.println("3️ Segui annuncio");
-        System.out.println("4️ Visualizza nota");
-        System.out.println("5️ Crea nota");
-        System.out.println("6️ Ritorna al menu");
+        System.out.println("1️ Indica l'oggetto come venduto");
+        System.out.println("2️ Visualizza commenti");
+        System.out.println("3️ Scrivi un commento");
+        System.out.println("4️ Segui un annuncio");
+        System.out.println("5️ Visualizza nota");
+        System.out.println("6️ Crea nota");
+        System.out.println("7️ Ritorna al menu precedente ");
 
         Scanner input = new Scanner(System.in);
         int choice;
         while (true) {
             System.out.print("Inserisci la scelta: ");
             choice = input.nextInt();
-            if (choice >= 1 && choice <= 6) {
+            if (choice >= 1 && choice <= 7) {
                 break;
             }
             System.out.println("Opzione invalida");

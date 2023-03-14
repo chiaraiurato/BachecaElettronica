@@ -143,14 +143,28 @@ public class UtenteController implements ControllerSession{
             choice = UserView.second_menu();
 
             switch(choice) {
-                case 1 -> listComments(id);
-                case 2 -> writeComment(id);
-                case 3 -> followAd(id);
-                case 4 -> viewNote(id);
-                case 5 -> createNote(id);
-                case 6 -> chooseOperation();
+                case 1 -> adSold(id);
+                case 2 -> listComments(id);
+                case 3 -> writeComment(id);
+                case 4 -> followAd(id);
+                case 5 -> viewNote(id);
+                case 6 -> createNote(id);
+                case 7 -> chooseOperation();
                 default -> throw new RuntimeException("Invalid choice");
             }
+        }
+    }
+
+    private void adSold(int idAd) {
+        Boolean check = false;
+        AdSoldProcedureDAO adSold = AdSoldProcedureDAO.getInstance();
+        try {
+            check = adSold.execute(idAd, user);
+        } catch (DAOException e) {
+            UserView.printError(e);
+        }
+        if(check){
+            System.out.println("Annuncio venduto!");
         }
     }
 
