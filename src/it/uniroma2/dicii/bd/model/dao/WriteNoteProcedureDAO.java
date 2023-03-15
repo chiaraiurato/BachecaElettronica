@@ -9,7 +9,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Types;
 
-public class WriteNoteProcedureDAO implements GenericProcedureDAO <Note>{
+public class WriteNoteProcedureDAO implements GenericProcedureDAO <Boolean>{
     private static WriteNoteProcedureDAO instance = null;
     private WriteNoteProcedureDAO(){
         //Singleton
@@ -21,7 +21,7 @@ public class WriteNoteProcedureDAO implements GenericProcedureDAO <Note>{
         return instance;
     }
     @Override
-    public Note execute(Object... params) throws DAOException, SQLException {
+    public Boolean execute(Object... params) throws DAOException {
         Note note = (Note) params[0];
         int idAd = (int)params[1];
         User seller = (User) params[2];
@@ -38,6 +38,6 @@ public class WriteNoteProcedureDAO implements GenericProcedureDAO <Note>{
         } catch (SQLException e) {
             throw new DAOException("Error write a note: " + e.getMessage());
         }
-        return note;
+        return true;
     }
 }

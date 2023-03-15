@@ -6,6 +6,7 @@ import it.uniroma2.dicii.bd.model.utils.TablePrinter;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
 
@@ -21,8 +22,8 @@ public class UserView {
         System.out.println("3️ Visualizza un annuncio");
         System.out.println("4️ Scrivi un messaggio");
         System.out.println("5️ Visualizza una conversazione");
-        System.out.println("6️ Visualizza notifiche");
-        System.out.println("7️ Visualizza annunci seguiti");
+        System.out.println("6️ Visualizza annunci seguiti");
+        System.out.println("7️ Visualizza report");
         System.out.println("8️ Esci");
 
 
@@ -145,7 +146,6 @@ public class UserView {
 
         return choice;
     }
-
     public static Comment writeComment() {
         Scanner input = new Scanner(System.in);
         System.out.println("Inserire commento: ");
@@ -153,11 +153,23 @@ public class UserView {
         return new Comment( cmt);
     }
 
-
     public static Note writeNote() {
         Scanner input = new Scanner(System.in);
         System.out.println("Inserire nota: ");
         String note = input.nextLine();
         return new Note( note);
     }
+    public static boolean printNotificationAndDelete(List<Notification> notifications){
+        for(int i=0; i<notifications.size(); i++){
+            System.out.println(notifications.get(i).getDate() + " \uD83D\uDD14" + notifications.get(i).getText());
+        }
+        Scanner input = new Scanner(System.in);
+        System.out.println("Vuoi eliminare tutte le notifiche? (y/n): ");
+        String x = input.nextLine();
+        if(x.equals("y")){
+            return true;
+        }
+        return false;
+    }
+
 }

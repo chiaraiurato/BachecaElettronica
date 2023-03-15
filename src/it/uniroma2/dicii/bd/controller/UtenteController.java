@@ -5,6 +5,7 @@ import it.uniroma2.dicii.bd.model.domain.*;
 import it.uniroma2.dicii.bd.view.UserView;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
 
 public class UtenteController implements ControllerSession{
     private User user;
@@ -12,13 +13,28 @@ public class UtenteController implements ControllerSession{
 
     @Override
     public void start(Credentials credentials) {
+        List<Notification> notificationList;
+        boolean check;
         try {
             ConnectionFactory.changeRole(Role.UTENTE);
             ObtainUserProcedureDAO obtainUser = ObtainUserProcedureDAO.getInstance();
             user = obtainUser.execute(credentials.getUsername());
+            ListNotificationProcedureDAO listNotification = ListNotificationProcedureDAO.getInstance();
+            notificationList = listNotification.execute(user);
+            check=UserView.printNotificationAndDelete(notificationList);
+
         } catch(SQLException | DAOException e) {
             throw new RuntimeException(e);
         }
+        if(check){
+            DeleteNotificationProcedureDAO deleteNotification = DeleteNotificationProcedureDAO.getInstance();
+            try {
+                deleteNotification.execute(user);
+            } catch (DAOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
         chooseOperation();
     }
     private void chooseOperation(){
@@ -36,12 +52,16 @@ public class UtenteController implements ControllerSession{
                 case 3 -> viewAd();
                 case 4 -> writeMessage();
                 case 5 -> viewMessages();
-                case 6 -> viewNotification();
-                case 7 -> listFollowedAd();
+                case 6 -> listFollowedAd();
+                case 7 -> viewReport();
                 case 8 -> System.exit(0);
                 default -> throw new RuntimeException("Invalid choice");
             }
         }
+    }
+
+    private void viewReport() {
+
     }
 
     private void listFollowedAd() {
@@ -55,9 +75,6 @@ public class UtenteController implements ControllerSession{
         UserView.showListAd(adList);
     }
 
-    private void viewNotification() {
-    }
-
     private void viewMessages() {
         User seller = new User(UserView.listMessages());
         ViewMessagesProcedureDAO viewMessages = ViewMessagesProcedureDAO.getInstance();
@@ -69,6 +86,8 @@ public class UtenteController implements ControllerSession{
         }
         if(conversation != null){
             System.out.println(conversation);
+        }else{
+            System.out.println("Nessuna conversazione trovata.");
         }
 
     }
@@ -171,11 +190,14 @@ public class UtenteController implements ControllerSession{
     private void createNote(int idAd) {
         WriteNoteProcedureDAO writeNote = WriteNoteProcedureDAO.getInstance();
         Note note = UserView.writeNote();
+        Boolean check = false;
         try {
-            writeNote.execute(note, idAd, user);
-        } catch (DAOException | SQLException e) {
+            check=writeNote.execute(note, idAd, user);
+        } catch (DAOException e) {
             UserView.printError(e);
         }
+        if(check)
+            System.out.println("Nota scritta con successo");
     }
 
     private void viewNote(int idAd) {

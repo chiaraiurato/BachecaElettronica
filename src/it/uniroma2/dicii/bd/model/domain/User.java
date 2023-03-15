@@ -16,6 +16,8 @@ public class User {
 
     private List<ContactNotPreferred> contactNotPreferred;
 
+    private List<Notification> notifications;
+
     public User(String name, String surname, Date dateOfBirth, String residentialAddress, String billingAddress,TypeContact typeAddress, String prefContact) {
         this.name = name;
         this.surname = surname;
@@ -106,6 +108,13 @@ public class User {
 
     public void setContactNotPreferred(List<ContactNotPreferred> contactNotPreferred) {
         this.contactNotPreferred = contactNotPreferred;
+    }
+    public List<Notification> getNotifications() {
+        return notifications;
+    }
+
+    public void setNotifications(List<Notification> notifications) {
+        this.notifications = notifications;
     }
 
     @Override
