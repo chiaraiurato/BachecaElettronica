@@ -23,11 +23,11 @@ public class CategoryList {
             String name = c.getName();
 
             if (id.length() == 2) {
-                builder.append("+" + name + "\n");
+                builder.append("+").append(name).append("\n");
             } else if (id.length() == 3) {
-                builder.append("\t-" + name + "\n");
+                builder.append("\t-").append(name).append("\n");
             } else if (id.length() == 5) {
-                builder.append("\t\t-" + name + "\n");
+                builder.append("\t\t-").append(name).append("\n");
             }
         }
 

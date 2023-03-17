@@ -14,17 +14,19 @@ public class UtenteController implements ControllerSession{
     @Override
     public void start(Credentials credentials) {
         List<Notification> notificationList;
-        boolean check;
+        boolean check = false;
         try {
             ConnectionFactory.changeRole(Role.UTENTE);
             ObtainUserProcedureDAO obtainUser = ObtainUserProcedureDAO.getInstance();
             user = obtainUser.execute(credentials.getUsername());
             ListNotificationProcedureDAO listNotification = ListNotificationProcedureDAO.getInstance();
             notificationList = listNotification.execute(user);
-            check=UserView.printNotificationAndDelete(notificationList);
-
         } catch(SQLException | DAOException e) {
             throw new RuntimeException(e);
+        }
+
+        if(notificationList.size() > 0){
+            check=UserView.printNotificationAndDelete(notificationList);
         }
         if(check){
             DeleteNotificationProcedureDAO deleteNotification = DeleteNotificationProcedureDAO.getInstance();
