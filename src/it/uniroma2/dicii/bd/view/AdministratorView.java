@@ -1,5 +1,6 @@
 package it.uniroma2.dicii.bd.view;
 
+import it.uniroma2.dicii.bd.model.domain.Category;
 import it.uniroma2.dicii.bd.model.domain.Report;
 import it.uniroma2.dicii.bd.model.domain.User;
 import it.uniroma2.dicii.bd.model.utils.TablePrinter;
@@ -16,9 +17,8 @@ public class AdministratorView {
         System.out.println("*********************************\n");
         System.out.println("*** Cosa potrei fare per te? ***\n");
         System.out.println("1️ Genera report");
-        System.out.println("2️ Visualizza report");
-        System.out.println("3️ Aggiungi categoria");
-        System.out.println("4️ Esci");
+        System.out.println("2️ Aggiungi categoria");
+        System.out.println("3️ Esci");
 
 
         Scanner input = new Scanner(System.in);
@@ -26,7 +26,7 @@ public class AdministratorView {
         while (true) {
             System.out.print("Inserisci una scelta: ");
             choice = input.nextInt();
-            if (choice >= 1 && choice <= 4) {
+            if (choice >= 1 && choice <= 3) {
                 break;
             }
             System.out.println("Opzione invalida");
@@ -44,14 +44,21 @@ public class AdministratorView {
     public static void showReport(Report report) {
         TablePrinter tablePrinter = new TablePrinter();
         tablePrinter.setShowVerticalLines(true);
-        if (report == null) {
-            System.out.println("\nNessun report inserito! ");
-        } else {
-            tablePrinter.setHeaders("Venditore", "Data", "Percentuale");
+        if (report != null) {
+            tablePrinter.setHeaders("Venditore", "Data", "Percentuale Vendita");
 
             tablePrinter.addRow(report.getUser().getUsername(), report.getDate().toString(), String.valueOf(report.getPercentage()));
             tablePrinter.print();
 
         }
+    }
+
+    public static Category insertCategory() throws IOException {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        System.out.println("Path: ");
+        String path = reader.readLine();
+        System.out.println("Nome: ");
+        String name = reader.readLine();
+        return new Category(path, name);
     }
 }

@@ -2,6 +2,7 @@ package it.uniroma2.dicii.bd.controller;
 import it.uniroma2.dicii.bd.exception.DAOException;
 import it.uniroma2.dicii.bd.model.dao.*;
 import it.uniroma2.dicii.bd.model.domain.*;
+import it.uniroma2.dicii.bd.view.ApplicationView;
 import it.uniroma2.dicii.bd.view.UserView;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -55,24 +56,18 @@ public class UtenteController implements ControllerSession{
                 case 4 -> writeMessage();
                 case 5 -> viewMessages();
                 case 6 -> listFollowedAd();
-                case 7 -> viewReport();
-                case 8 -> System.exit(0);
+                case 7 -> System.exit(0);
                 default -> throw new RuntimeException("Invalid choice");
             }
         }
     }
-
-    private void viewReport() {
-
-    }
-
     private void listFollowedAd() {
         ListFollowedAdProcedureDAO followAd = ListFollowedAdProcedureDAO.getInstance();
         AdList adList = null;
         try {
             adList = followAd.execute(user);
         } catch (DAOException e) {
-            UserView.printError(e);
+            ApplicationView.printError(e);
         }
         UserView.showListAd(adList);
     }
@@ -84,7 +79,7 @@ public class UtenteController implements ControllerSession{
         try {
             conversation = viewMessages.execute(user, seller);
         } catch (DAOException | SQLException e) {
-            UserView.printError(e);
+            ApplicationView.printError(e);
         }
         if(conversation != null){
             System.out.println(conversation);
@@ -101,7 +96,7 @@ public class UtenteController implements ControllerSession{
         try {
             check = writeMessage.execute(user, conv.getSeller(), conv.getMessageLists().get(0));
         } catch (DAOException e) {
-            UserView.printError(e);
+            ApplicationView.printError(e);
         }
         if(check){
             System.out.println("Messaggio scritto con successo!");
@@ -114,7 +109,7 @@ public class UtenteController implements ControllerSession{
             ListAdProcedureDAO listAd = ListAdProcedureDAO.getInstance();
             adList = listAd.execute(user);
         } catch (DAOException e) {
-            UserView.printError(e);
+            ApplicationView.printError(e);
         }
         UserView.showListAd(adList);
     }
@@ -138,13 +133,13 @@ public class UtenteController implements ControllerSession{
             category = UserView.selectCategory(categoryList);
             ad.setCategory(category);
         } catch (IOException | DAOException e) {
-            UserView.printError(e);
+            ApplicationView.printError(e);
         }
         try {
             AddAdProcedureDAO addAd = AddAdProcedureDAO.getInstance();
             ad = addAd.execute(ad.getTitle(), ad.getAmount(), ad.getDescription(), user, category);
         } catch(DAOException e) {
-            UserView.printError(e);
+            ApplicationView.printError(e);
         }
         UserView.showAd(ad);
     }
@@ -155,7 +150,7 @@ public class UtenteController implements ControllerSession{
             ViewAdProcedureDAO viewAd = ViewAdProcedureDAO.getInstance();
             ad = viewAd.execute(id);
         } catch (DAOException e) {
-            UserView.printError(e);
+            ApplicationView.printError(e);
             chooseOperation();
         }
         UserView.showAd(ad);
@@ -182,7 +177,7 @@ public class UtenteController implements ControllerSession{
         try {
             check = adSold.execute(idAd, user);
         } catch (DAOException e) {
-            UserView.printError(e);
+            ApplicationView.printError(e);
         }
         if(check){
             System.out.println("Annuncio venduto!");
@@ -196,7 +191,7 @@ public class UtenteController implements ControllerSession{
         try {
             check=writeNote.execute(note, idAd, user);
         } catch (DAOException e) {
-            UserView.printError(e);
+            ApplicationView.printError(e);
         }
         if(check)
             System.out.println("Nota scritta con successo");
@@ -208,7 +203,7 @@ public class UtenteController implements ControllerSession{
             ListNoteProcedureDAO listNote = ListNoteProcedureDAO.getInstance();
             noteList = listNote.execute(idAd);
         } catch (DAOException e) {
-            UserView.printError(e);
+           ApplicationView.printError(e);
         }
         if (noteList != null) {
             System.out.println(noteList);
@@ -235,7 +230,7 @@ public class UtenteController implements ControllerSession{
             ListCommentsProcedureDAO listComments = ListCommentsProcedureDAO.getInstance();
             commentList = listComments.execute(idAd);
         } catch (DAOException e) {
-            UserView.printError(e);
+            ApplicationView.printError(e);
         }
         if (commentList != null) {
             System.out.println(commentList);
@@ -251,7 +246,7 @@ public class UtenteController implements ControllerSession{
         try {
             writeComment.execute(comment, idAd);
         } catch (DAOException | SQLException e) {
-            UserView.printError(e);
+            ApplicationView.printError(e);
         }
 
     }

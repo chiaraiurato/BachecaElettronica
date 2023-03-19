@@ -1,8 +1,6 @@
 package it.uniroma2.dicii.bd.model.dao;
-
 import it.uniroma2.dicii.bd.exception.DAOException;
 import it.uniroma2.dicii.bd.model.domain.*;
-
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;

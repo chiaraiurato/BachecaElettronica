@@ -34,5 +34,14 @@ public class CategoryList {
         return builder.toString();
     }
 
-
+    @Override
+    public String toString() {
+        StringBuilder string = new StringBuilder();
+        string.append("** Categories **" + "\n");
+        for(Category category : categories) {
+            string.append("\t").append(category.getIdCategory()).append(": ");
+            string.append(category.getName()).append("\n");
+        }
+        return string.toString();
+    }
 }

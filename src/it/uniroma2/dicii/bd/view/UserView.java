@@ -23,8 +23,7 @@ public class UserView {
         System.out.println("4️ Scrivi un messaggio");
         System.out.println("5️ Visualizza una conversazione");
         System.out.println("6️ Visualizza annunci seguiti");
-        System.out.println("7️ Visualizza report");
-        System.out.println("8️ Esci");
+        System.out.println("7️ Esci");
 
 
         Scanner input = new Scanner(System.in);
@@ -32,7 +31,7 @@ public class UserView {
         while (true) {
             System.out.print("Inserisci la scelta: ");
             choice = input.nextInt();
-            if (choice >= 1 && choice <= 8) {
+            if (choice >= 1 && choice <= 7) {
                 break;
             }
             System.out.println("Opzione invalida");
@@ -57,9 +56,7 @@ public class UserView {
         String categories = categoryList.printTreeCategories();
         System.out.println(categories);
     }
-    public static void printError(Exception e){
-        System.out.println(e.getMessage());
-    }
+
     public static Category selectCategory(CategoryList categoryList) throws IOException {
         int index = 0;
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));

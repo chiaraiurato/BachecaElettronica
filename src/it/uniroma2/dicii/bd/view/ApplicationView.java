@@ -23,4 +23,7 @@ public class ApplicationView {
 
         return choice;
     }
+    public static void printError(Exception e){
+        System.out.println(e.getMessage());
+    }
 }

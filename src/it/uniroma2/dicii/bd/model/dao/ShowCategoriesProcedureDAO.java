@@ -26,7 +26,6 @@ public class ShowCategoriesProcedureDAO implements GenericProcedureDAO<CategoryL
         try {
             Connection conn = ConnectionFactory.getConnection();
             CallableStatement cs = conn.prepareCall("{call visualizza_categoria()}");
-            //cs.setInt(1, num_albero);
             boolean status = cs.execute();
             if (status) {
                 ResultSet rs = cs.getResultSet();
