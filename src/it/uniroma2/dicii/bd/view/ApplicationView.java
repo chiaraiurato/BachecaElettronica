@@ -7,8 +7,8 @@ public class ApplicationView {
         System.out.println("**********************************");
         System.out.println("* BACHECA ELETTRONICA DI ANNUNCI *");
         System.out.println("**********************************\n");
-        System.out.println("1) Registration\n");
-        System.out.println("2) Login\n");
+        System.out.println("1️ Registration\n");
+        System.out.println("2️ Login\n");
 
         Scanner input = new Scanner(System.in);
         int choice;

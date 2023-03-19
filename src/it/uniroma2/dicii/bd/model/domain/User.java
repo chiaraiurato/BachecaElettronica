@@ -13,9 +13,7 @@ public class User {
     private List<Ad> followAds;
     private TypeContact typePrefContact;
     private String prefContactDetails;
-
     private List<ContactNotPreferred> contactNotPreferred;
-
     private List<Notification> notifications;
 
     public User(String name, String surname, Date dateOfBirth, String residentialAddress, String billingAddress,TypeContact typeAddress, String prefContact) {

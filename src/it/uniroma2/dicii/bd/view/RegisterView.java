@@ -14,9 +14,9 @@ import java.util.List;
 public class RegisterView {
     public static Credentials register() throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        System.out.print(" Inserisci un username: ");
+        System.out.print("\uD83D\uDC64 Inserisci un username: ");
         String username = reader.readLine();
-        System.out.print(" Scegli una password: ");
+        System.out.print("\uD83D\uDD11 Scegli una password: ");
         String password = reader.readLine();
 
         return new Credentials(username, password, Role.UTENTE);
@@ -38,7 +38,8 @@ public class RegisterView {
         List<String> typeAddress = new ArrayList<>();
         List<String> address = new ArrayList<>();
         while(true) {
-            System.out.print("Tipo recapito (telefono/cellulare/email): ");
+            System.out.println("'telefono' (xx xxxxxx)\t 'cellulare' (xxx-xxx-xxxx) 'email' (example@gmail.com))");
+            System.out.print("Tipo recapito : ");
             typeAddress.add(i,reader.readLine());
             System.out.print("Recapito: ");
             address.add(i, reader.readLine());
