@@ -135,14 +135,14 @@ public class UtenteController implements ControllerSession{
             categoryList = showCategories.execute();
             UserView.showCategory(categoryList);
 
-            category = UserView.selectCategory(categoryList);
+            category = UserView.selectCategory();
             ad.setCategory(category);
         } catch (IOException | DAOException e) {
             ApplicationView.printError(e);
         }
         try {
             AddAdProcedureDAO addAd = AddAdProcedureDAO.getInstance();
-            ad = addAd.execute(ad.getTitle(), ad.getAmount(), ad.getDescription(), user, category);
+            ad = addAd.execute(ad.getTitle(), ad.getAmount(), ad.getDescription(), user, ad.getCategory());
         } catch(DAOException e) {
             ApplicationView.printError(e);
         }

@@ -57,20 +57,13 @@ public class UserView {
         System.out.println(categories);
     }
 
-    public static Category selectCategory(CategoryList categoryList) throws IOException {
-        int index = 0;
+    public static Category selectCategory() throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        int i;
         String category;
-        while (true) {
-            System.out.println("Si prega di selezionare una categoria: ");
-            category = reader.readLine();
-            for (i=0; i< categoryList.getCategories().size(); i++) {
-                if (Objects.equals(category, categoryList.getCategories().get(index++).getName())) {
-                    return new Category(categoryList.getCategories().get(index-1).getIdCategory(), category);
-                }
-            }
-        }
+        System.out.println("Si prega di selezionare una categoria: ");
+        category = reader.readLine();
+        return new Category(category);
+
     }
     public static  int selectAd(){
         Scanner input = new Scanner(System.in);
