@@ -8,15 +8,15 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class ObtainUserProcedureDAO implements GenericProcedureDAO <User>{
-    private static ObtainUserProcedureDAO instance = null;
+public class ViewUserProcedureDAO implements GenericProcedureDAO <User>{
+    private static ViewUserProcedureDAO instance = null;
 
-    private ObtainUserProcedureDAO(){
+    private ViewUserProcedureDAO(){
         //Singleton
     }
-    public static ObtainUserProcedureDAO getInstance(){
+    public static ViewUserProcedureDAO getInstance(){
         if(instance == null){
-            instance = new ObtainUserProcedureDAO();
+            instance = new ViewUserProcedureDAO();
         }
         return instance;
     }
@@ -26,7 +26,7 @@ public class ObtainUserProcedureDAO implements GenericProcedureDAO <User>{
         User user= null;
         try {
             Connection conn = ConnectionFactory.getConnection();
-            CallableStatement cs = conn.prepareCall("{call ottieni_user(?)}");
+            CallableStatement cs = conn.prepareCall("{call visualizza_utente(?)}");
             cs.setString(1, username);
             boolean status = cs.execute();
             if(status) {

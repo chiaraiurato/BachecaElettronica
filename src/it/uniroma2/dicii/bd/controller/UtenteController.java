@@ -18,7 +18,7 @@ public class UtenteController implements ControllerSession{
         boolean check = false;
         try {
             ConnectionFactory.changeRole(Role.UTENTE);
-            ObtainUserProcedureDAO obtainUser = ObtainUserProcedureDAO.getInstance();
+            ViewUserProcedureDAO obtainUser = ViewUserProcedureDAO.getInstance();
             user = obtainUser.execute(credentials.getUsername());
             ListNotificationProcedureDAO listNotification = ListNotificationProcedureDAO.getInstance();
             notificationList = listNotification.execute(user);
@@ -69,7 +69,12 @@ public class UtenteController implements ControllerSession{
         } catch (DAOException e) {
             ApplicationView.printError(e);
         }
-        UserView.showListAd(adList);
+        if (adList != null && adList.getSize() > 0) {
+            UserView.showListAd(adList);
+        }else {
+            System.out.println("Nessun annuncio seguito");
+        }
+
     }
 
     private void viewMessages() {
